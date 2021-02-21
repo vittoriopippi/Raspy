@@ -9,7 +9,10 @@ class HDbot:
     last_movie_id = 0
     locked = True
     movie_history = {}
-    torrents_dst = '.'
+    torrents_folder = None
+    downloading_folder = None
+    completed_folder = None
+    uploading_folder = None
 
     def __init__(self, bot, username, password, unlock_password):
         self.bot = bot
@@ -17,6 +20,8 @@ class HDbot:
         self.password = password
         self.unlock_password = unlock_password
         self.scraper = hdtscraper(username, password)
+
+    def start_loop(self):
         MessageLoop(self.bot, {'chat': self.on_chat_message, 'callback_query': self.on_callback_query}).run_as_thread()
     
     def on_chat_message(self, msg):
@@ -31,7 +36,7 @@ class HDbot:
 
         movie = self.movie_history[query_data]['movie']
         message = self.movie_history[query_data]['message']
-        self.scraper.download_torrent(movie, self.torrents_dst)
+        self.scraper.download_torrent(movie, self.torrents_folder)
 
         msg_id = telepot.message_identifier(message)
         self.bot.editMessageReplyMarkup(msg_id)
