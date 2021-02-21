@@ -9,3 +9,9 @@ INCOMPLETE_FOLDER = './Incomplete'
 COMPLETED_FOLDER = './Completed'
 UPLOADING_FOLDER = './Uploading'
 LOOP_TIME = 300
+
+from pathlib import Path
+Path(TORRENT_FOLDER).mkdir(parents=True, exist_ok=True)
+Path(INCOMPLETE_FOLDER).mkdir(parents=True, exist_ok=True)
+Path(COMPLETED_FOLDER).mkdir(parents=True, exist_ok=True)
+Path(UPLOADING_FOLDER).mkdir(parents=True, exist_ok=True)
